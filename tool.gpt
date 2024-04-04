@@ -2,4 +2,6 @@ name: cred-test
 
 #!/usr/bin/env bash
 
-echo "{\"env\":{\"MY_ENV_VAR\":\"yeet\"}}"
+output=$(gptscript --cache=false sys.prompt '{"message":"Please enter your fake credential.","fields":"credential"}')
+credential=$(echo $output | jq -r '.credential')
+echo "{\"env\":{\"MY_ENV_VAR\":\"$credential\"}}
